@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import logo from './logo.svg';
 import Recipe from './Recipe';
 import Navbar from './Navbar';
@@ -24,18 +25,23 @@ class RecipeApp extends Component {
   }
 
   render() {
-    const {showForm} = this.state;
+    const {shouldShowForm, recipes} = this.props;
     return (
       <div className="App">
         <Navbar onNewRecipe={() => this.setState({showForm: true})} />
-        { showForm ? <RecipeInput
+        { shouldShowForm ? <RecipeInput
           onSave={this.handleSave}
           onClose={() => this.setState({showForm: false})}
         /> : null }
-        <RecipeList onDelete={this.onDelete} recipes={this.state.recipes} />
+        <RecipeList onDelete={this.onDelete} recipes={recipes} />
       </div>
     );
   }
 }
 
-export default RecipeApp;
+const mapStateToProps = state => ({
+  recipes: state.recipes,
+  shouldShowForm: state.shouldShowForm
+});
+
+export default connect(mapStateToProps, null)(RecipeApp);
