@@ -7,7 +7,7 @@ class Navbar extends Component {
         onNewRecipe() {}
     }
 
-    static PropTypes = {
+    static propTypes = {
         onNewRecipe: PropTypes.func
     }
 
